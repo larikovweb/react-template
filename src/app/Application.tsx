@@ -1,10 +1,14 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { GlobalStyles } from '../styled/GlobalStyles';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from './Layout';
 import { publicRoutes } from './routes';
+import { Context } from '../index';
+import { observer } from 'mobx-react-lite';
 
-const Application: FC = () => {
+const Application: FC = observer(() => {
+  const { user } = useContext(Context);
+
   return (
     <>
       <GlobalStyles />
@@ -19,6 +23,6 @@ const Application: FC = () => {
       </BrowserRouter>
     </>
   );
-};
+});
 
 export default Application;
