@@ -19,8 +19,5 @@ export const Layout: FC = () => {
 };
 
 const Main = styled.main`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  display: block;
 `;
