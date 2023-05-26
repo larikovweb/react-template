@@ -26,22 +26,21 @@ export const calcFluidFontSize = (
 
 export const fontFace = (
   $font_family: string,
-  $file_path: string,
+  $file_path: { ttf: string; woff: string; woff2: string; eot: string; svg: string },
   $weight: number | string = 'normal',
   $style = 'normal',
 ) => {
-  const name = $file_path.split('/').pop();
+  const name = $file_path.ttf.split('/').pop();
   const nameLocal = name?.split('-').join(' ');
-  const path = $file_path.split('.')[0];
 
   return `@font-face {
     font-family: ${$font_family};
-    src: url('${path}.eot');
+    src: url('${$file_path.eot}');
     src: local('${name}'), local('${nameLocal}'),
-      url('${path}.eot?#iefix') format('embedded-opentype'),
-      url('${path}.woff') format('woff'), url('${path}.woff2') format('woff2'),
-      url('${path}.svg') format('svg'), url('${path}.ttf') format('ttf'),
-      url('${path}.ttf') format('truetype');
+      url('${$file_path.eot}?#iefix') format('embedded-opentype'),
+      url('${$file_path.woff}') format('woff'), url('${$file_path.woff2}') format('woff2'),
+      url('${$file_path.svg}') format('svg'), url('${$file_path.ttf}') format('ttf'),
+      url('${$file_path.ttf}') format('truetype');
     font-weight: ${$weight};
     font-style: ${$style};
     font-display: swap;
