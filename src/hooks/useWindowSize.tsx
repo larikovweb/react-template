@@ -3,20 +3,20 @@ import useEventListener from './useEventListener';
 import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
 
 interface WindowSize {
-  width: number;
-  height: number;
+  windowWidth: number;
+  windowHeight: number;
 }
 
 function useWindowSize(): WindowSize {
   const [windowSize, setWindowSize] = useState<WindowSize>({
-    width: 0,
-    height: 0,
+    windowWidth: 0,
+    windowHeight: 0,
   });
 
   const handleSize = () => {
     setWindowSize({
-      width: window.innerWidth,
-      height: window.innerHeight,
+      windowWidth: window.innerWidth,
+      windowHeight: window.innerHeight,
     });
   };
 
@@ -34,4 +34,4 @@ function useWindowSize(): WindowSize {
 export default useWindowSize;
 
 //usage
-//const { width, height } = useWindowSize()
+//const { windowWidth, windowHeight } = useWindowSize()
