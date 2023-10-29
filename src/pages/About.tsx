@@ -7,7 +7,7 @@ const About: FC = () => {
   return (
     <>
       <HelmetHead title="Заголовок О нас" descr="Описание О нас" />
-      <Wrapper>ABOUT PAGE</Wrapper>;
+      <Wrapper>ABOUT PAGE</Wrapper>
     </>
   );
 };

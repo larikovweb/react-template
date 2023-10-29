@@ -6,7 +6,7 @@ const Main: FC = () => {
   return (
     <>
       <HelmetHead title="Заголовок Главной" descr="Описание Главной" />
-      <Wrapper>MAIN PAGE</Wrapper>;
+      <Wrapper>MAIN PAGE</Wrapper>
     </>
   );
 };
