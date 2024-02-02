@@ -46,28 +46,39 @@ export const Nav: FC = () => {
   const pathName = useLocation().pathname;
   return (
     <Wrapper>
-      {nav.map((item, i) => {
-        const noBg = pathName !== item.link && i !== 2;
-        const active = pathName === item.link && i !== 2;
-        const premium = i === 2;
+      <Links>
+        {nav.map((item, i) => {
+          const noBg = pathName !== item.link && i !== 2;
+          const active = pathName === item.link && i !== 2;
+          const premium = i === 2;
 
-        return (
-          <NavigateClick to={item.link} key={item.name}>
-            <BtnWrap $premium={premium}>
-              <Button noBg={noBg} borderPrimary={active} borderPremium={premium} fitContent>
-                <DictNavIcon url={item.link} active={active} />
-                {item.name}
-              </Button>
-            </BtnWrap>
-          </NavigateClick>
-        );
-      })}
+          return (
+            <NavigateClick to={item.link} key={item.name}>
+              <BtnWrap $premium={premium}>
+                <Button noBg={noBg} borderPrimary={active} borderPremium={premium} fitContent>
+                  <DictNavIcon url={item.link} active={active} />
+                  {item.name}
+                </Button>
+              </BtnWrap>
+            </NavigateClick>
+          );
+        })}
+      </Links>
+      <PremiumBtn>
+        <NavigateClick to={nav[2].link}>
+          <Button borderPremium fitContent>
+            <DictNavIcon url={nav[2].link} id="1" />
+            {nav[2].name}
+          </Button>
+        </NavigateClick>
+      </PremiumBtn>
     </Wrapper>
   );
 };
 
-const DictNavIcon: FC<{ url: string; active: boolean }> = ({ url, active }) => {
+const DictNavIcon: FC<{ url: string; active?: boolean; id?: string }> = ({ url, active, id }) => {
   const activeColor = active ? [$primaryStartColor, $primaryEndColor] : ['#fff', '#fff'];
+  console.log(url);
 
   switch (url) {
     case EXPLORE_ROUTE:
@@ -75,7 +86,7 @@ const DictNavIcon: FC<{ url: string; active: boolean }> = ({ url, active }) => {
     case CHAT_ROUTE:
       return <IconChat startColor={activeColor[0]} stopColor={activeColor[1]} />;
     case CREATE_ROUTE:
-      return <IconCreate startColor={$premiumStartColor} stopColor={$premiumEndColor} />;
+      return <IconCreate id={id} startColor={$premiumStartColor} stopColor={$premiumEndColor} />;
     case YOUR_AI_ROUTE:
       return <IconAI startColor={activeColor[0]} stopColor={activeColor[1]} />;
     case GALLERY_ROUTE:
@@ -86,10 +97,14 @@ const DictNavIcon: FC<{ url: string; active: boolean }> = ({ url, active }) => {
 };
 
 const Wrapper = styled.nav`
-  position: absolute;
+  /* position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
+  display: flex;
+`;
+
+const Links = styled.div`
   display: flex;
   border-radius: 0.75rem;
   border: 0.0625rem solid #25293f;
@@ -100,6 +115,10 @@ const BtnWrap = styled.div<{ $premium?: boolean }>`
   ${({ $premium }) =>
     $premium &&
     css`
-      order: 1;
+      display: none;
     `}
+`;
+
+const PremiumBtn = styled.div`
+  margin-left: 0.75rem;
 `;

@@ -1,11 +1,13 @@
 import { FC } from 'react';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 import { IconLogo } from '../../../components/icons';
 import { $primaryColor } from '../../../styled/helpers';
+import { MAIN_ROUTE } from '../../../utils';
 
 export const Logo: FC = () => {
   return (
-    <Wrapper>
+    <Wrapper to={MAIN_ROUTE}>
       <Icon>
         <IconLogo />
       </Icon>
@@ -15,7 +17,7 @@ export const Logo: FC = () => {
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled(Link)`
   display: flex;
   align-items: center;
   font-size: 2rem;
