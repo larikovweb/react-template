@@ -1,18 +1,18 @@
-import { FC } from 'react';
-import { Helmet } from 'react-helmet';
-import { useLocation } from 'react-router-dom';
-import { ThumbnailDefault } from '../assets/img/seo';
+import { type FC } from 'react'
+import { Helmet } from 'react-helmet'
+import { useLocation } from 'react-router-dom'
+import { ThumbnailDefault } from '../../assets/img/seo'
 
 interface Props {
-  title: string;
-  descr: string;
-  img?: string;
+  title: string
+  descr: string
+  img?: string
 }
 
 export const HelmetHead: FC<Props> = (props) => {
-  const { title, descr, img } = props;
-  const url = window.location.href.slice(0, -1);
-  const pathname = useLocation().pathname;
+  const { title, descr, img } = props
+  const url = window.location.href.slice(0, -1)
+  const pathname = useLocation().pathname
 
   return (
     <Helmet>
@@ -28,5 +28,5 @@ export const HelmetHead: FC<Props> = (props) => {
       <meta property="og:locale" content="ru_RU" />
       <meta property="og:site_name" content={descr} />
     </Helmet>
-  );
-};
+  )
+}

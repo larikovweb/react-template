@@ -1,8 +1,7 @@
 import { css, Global } from '@emotion/react';
-import { FC } from 'react';
-import { calcFluidFontSize, fontFace } from './mixins';
-import { RobotoBold, RobotoMedium, RobotoRegular } from '../assets/fonts/Roboto';
-import emotionReset from 'emotion-reset';
+import { type FC } from 'react';
+import { SCREEN_LG, SCREEN_MD, SCREEN_SM } from '../utils/screens';
+import { calcFluidFontSize } from './helpers/mixins';
 import {
   $desktopWidth,
   $mainBackgroundColor,
@@ -11,20 +10,15 @@ import {
   $mainFontSize,
   $phoneWidth,
   $tableWidth,
-} from './variables';
-import { SCREEN_LG, SCREEN_MD, SCREEN_SM } from '../utils/consts';
+} from './helpers/variables';
 
 export const GlobalStyles: FC = () => (
   <Global
     styles={css`
-      ${emotionReset}
-      ${fontFace('Roboto', RobotoRegular, 400)}
-      ${fontFace('Roboto', RobotoMedium, 500)}
-      ${fontFace('Roboto', RobotoBold, 700)}
-
       html {
         font-family: ${$mainFont};
         font-size: ${$mainFontSize};
+        color: ${$mainFontColor};
         scroll-behavior: smooth;
         @media screen and (max-width: ${$desktopWidth}) {
           font-size: ${calcFluidFontSize(11.0223, 21.3333, SCREEN_MD, SCREEN_LG)};
@@ -40,13 +34,108 @@ export const GlobalStyles: FC = () => (
       body {
         position: relative;
         background: ${$mainBackgroundColor};
-        color: ${$mainFontColor};
       }
 
       #root {
         display: grid;
         grid-template-rows: auto 1fr auto;
         min-height: 100vh;
+      }
+
+      /* Box sizing rules */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      /* Prevent font size inflation */
+      html {
+        -moz-text-size-adjust: none;
+        -webkit-text-size-adjust: none;
+        text-size-adjust: none;
+      }
+
+      /* Remove default margin in favour of better control in authored CSS */
+      body,
+      h1,
+      h2,
+      h3,
+      h4,
+      p,
+      figure,
+      blockquote,
+      dl,
+      dd {
+        margin: 0;
+      }
+
+      /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+      ul[role='list'],
+      ol[role='list'] {
+        list-style: none;
+      }
+
+      /* Set core body defaults */
+      body {
+        min-height: 100vh;
+        line-height: 1.5;
+      }
+
+      /* Set shorter line heights on headings and interactive elements */
+      h1,
+      h2,
+      h3,
+      h4,
+      button,
+      input,
+      label {
+        line-height: 1.1;
+      }
+
+      /* Balance text wrapping on headings */
+      h1,
+      h2,
+      h3,
+      h4 {
+        text-wrap: balance;
+      }
+
+      /* A elements that don't have a class get default styles */
+      a:not([class]) {
+        text-decoration-skip-ink: auto;
+        color: currentColor;
+      }
+
+      /* Make images easier to work with */
+      img,
+      picture {
+        max-width: 100%;
+        display: block;
+      }
+
+      /* Inherit fonts for inputs and buttons */
+      input,
+      button,
+      textarea,
+      select {
+        font: inherit;
+      }
+
+      /* Make sure textarea without a rows attribute are not tiny */
+      textarea:not([rows]) {
+        min-height: 10em;
+      }
+
+      /* Anything that has been anchored to should have extra scroll margin */
+      :target {
+        scroll-margin-block: 5ex;
+      }
+      button {
+        outline: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
       }
     `}
   />

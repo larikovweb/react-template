@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
-import { FC } from 'react';
-import { Header } from './Header';
+import { Suspense, type FC } from 'react';
 import { Outlet } from 'react-router-dom';
+import { HelmetHead } from '../../components/seo/HelmetHead';
+import { ScrollTop } from '../../components/route';
+import { Header } from './Header';
 import { Footer } from './Footer';
-import { HelmetHead } from '../../components/HelmetHead';
 
 export const Layout: FC = () => {
   return (
@@ -11,7 +12,9 @@ export const Layout: FC = () => {
       <HelmetHead title="Общий заголовок" descr="Общее описание" />
       <Header />
       <Main>
-        <Outlet />
+        <Suspense fallback={<ScrollTop />}>
+          <Outlet />
+        </Suspense>
       </Main>
       <Footer />
     </>

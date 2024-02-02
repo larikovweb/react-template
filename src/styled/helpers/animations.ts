@@ -1,4 +1,4 @@
-//global animation
+// global animation
 
 import { keyframes } from '@emotion/react';
 
