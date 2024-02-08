@@ -1,19 +1,18 @@
-import { CHAT_ROUTE, MAIN_ROUTE, NOT_FOUND_ROUTE } from '../utils/index';
-import { Pages } from '../pages';
+import About from '../pages/About';
+import Main from '../pages/Main';
+import NotFound from '../pages/NotFound';
 
-export interface RouteType {
+import { ABOUT_ROUTE, MAIN_ROUTE, NOT_FOUND_ROUTE } from '../utils/consts';
+
+export type RouteType = {
   path: string;
   component: JSX.Element;
-}
+};
 
 export const publicRoutes: RouteType[] = [
-  { path: MAIN_ROUTE, component: <Pages.Main /> },
-  { path: NOT_FOUND_ROUTE, component: <Pages.NotFound /> },
-];
+  { path: MAIN_ROUTE, component: <Main /> },
+  { path: ABOUT_ROUTE, component: <About /> },
 
-export const privateRoutes: RouteType[] = [
-  {
-    path: CHAT_ROUTE,
-    component: <Pages.Chat />,
-  },
+  //...
+  { path: NOT_FOUND_ROUTE, component: <NotFound /> },
 ];

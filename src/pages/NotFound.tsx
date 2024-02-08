@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { type FC } from 'react';
-import { Container } from '../../styled/com/Container';
+import { FC } from 'react';
+import { Container } from '../styled/components';
 const NotFound: FC = () => {
   return <Wrapper>404 PAGE</Wrapper>;
 };

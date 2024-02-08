@@ -1,3 +1,3 @@
-import ThumbnailDefault from './thumbnail_default.png'
+import ThumbnailDefault from './thumbnail_default.png';
 
-export { ThumbnailDefault }
+export { ThumbnailDefault };

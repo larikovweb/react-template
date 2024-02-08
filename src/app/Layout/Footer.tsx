@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { type FC } from 'react';
-import { Container } from '../../styled/com/Container';
+import { FC } from 'react';
+import { Container } from '../../styled/components';
 
 export const Footer: FC = () => {
   return (
