@@ -12,7 +12,7 @@ export const ProtectedRoute: FC = () => {
 
   if (isNull(token)) {
     localStorage.setItem('authPathname', location.pathname);
-    return <Redirect uri={RoutePrefix.NOT_FOUND} replace />;
+    return <Redirect uri={RoutePrefix.AUTH} replace />;
   }
   return <Outlet />;
 };

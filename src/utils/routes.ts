@@ -1,7 +1,9 @@
 const MAIN = '/';
+const AUTH = '/auth';
 const NOT_FOUND = '/404';
 
 export const RoutePrefix = {
-  MAIN: MAIN,
-  NOT_FOUND: NOT_FOUND,
+  MAIN,
+  AUTH,
+  NOT_FOUND,
 };

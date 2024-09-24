@@ -14,3 +14,5 @@ export function assert(
     throw error;
   }
 }
+
+export const isReactSnap = navigator.userAgent === 'ReactSnap';
