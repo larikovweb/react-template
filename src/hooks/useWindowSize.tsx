@@ -1,37 +1,36 @@
-import { useState } from 'react';
-import useEventListener from './useEventListener';
-import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
+import { BreakpointPrefix } from '@utils/screens';
+import { useEffect, useState } from 'react';
 
 interface WindowSize {
   windowWidth: number;
-  windowHeight: number;
+  isMobile: boolean;
 }
 
-function useWindowSize(): WindowSize {
+export function useWindowSize(): WindowSize {
   const [windowSize, setWindowSize] = useState<WindowSize>({
     windowWidth: 0,
-    windowHeight: 0,
+    isMobile: false,
   });
 
+  // Сохраняем только ширину окна, чтобы избежать лишних обновлений при изменении высоты
   const handleSize = () => {
-    setWindowSize({
-      windowWidth: window.innerWidth,
-      windowHeight: window.innerHeight,
-    });
+    const newWidth = window.innerWidth;
+    if (newWidth !== windowSize.windowWidth) {
+      setWindowSize({
+        windowWidth: newWidth,
+        isMobile: newWidth <= BreakpointPrefix.SM,
+      });
+    }
   };
 
-  useEventListener('resize', handleSize);
-
-  // Set size at the first client-side load
-  useIsomorphicLayoutEffect(() => {
-    handleSize();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useEffect(() => {
+    handleSize(); // Устанавливаем начальный размер
+    window.addEventListener('resize', handleSize); // Подписываемся на событие resize
+    return () => window.removeEventListener('resize', handleSize); // Очищаем подписку
+  }, [windowSize.windowWidth]); // Зависимость от ширины окна для предотвращения ненужных вызовов
 
   return windowSize;
 }
-
-export default useWindowSize;
 
 //usage
 //const { windowWidth, windowHeight } = useWindowSize()

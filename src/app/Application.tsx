@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { GlobalStyles } from '../styled/GlobalStyles';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { GlobalStyles } from '@styled/GlobalStyles';
 import { Layout } from './Layout';
 import { publicRoutes } from './routes';
 

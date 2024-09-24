@@ -1,8 +1,5 @@
-import About from '../pages/About';
-import Main from '../pages/Main';
-import NotFound from '../pages/NotFound';
-
-import { ABOUT_ROUTE, MAIN_ROUTE, NOT_FOUND_ROUTE } from '../utils/consts';
+import { Pages } from '@pages/index';
+import { RoutePrefix } from '@utils/routes';
 
 export type RouteType = {
   path: string;
@@ -10,9 +7,11 @@ export type RouteType = {
 };
 
 export const publicRoutes: RouteType[] = [
-  { path: MAIN_ROUTE, component: <Main /> },
-  { path: ABOUT_ROUTE, component: <About /> },
+  { path: RoutePrefix.MAIN, component: <Pages.Main /> },
 
   //...
-  { path: NOT_FOUND_ROUTE, component: <NotFound /> },
+  { path: RoutePrefix.NOT_FOUND, component: <Pages.NotFound /> },
+  { path: '*', component: <Pages.NotFound /> },
 ];
+
+export const privateRoutes: RouteType[] = [];

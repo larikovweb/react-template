@@ -1,26 +1,77 @@
-import { RefObject } from 'react';
-import useEventListener from './useEventListener';
+import { Fn } from '@bunt/type';
+import { RefObject, useEffect } from 'react';
 
-type Handler = (event: MouseEvent) => void;
+type Listener = Fn;
+type StackRef = { listener: Fn; ref: RefObject<HTMLElement> };
 
-function useOnClickOutside<T extends HTMLElement = HTMLElement>(
-  ref: RefObject<T>,
-  handler: Handler,
-  mouseEvent: 'mousedown' | 'mouseup' = 'mousedown',
-): void {
-  useEventListener(mouseEvent, (event) => {
-    const el = ref?.current;
-
-    // Do nothing if clicking ref's element or descendent elements
-    if (!el || el.contains(event.target as Node)) {
+const locks: boolean[] = [];
+const stack: StackRef[] = [];
+const refs = new WeakSet();
+document.body.addEventListener(
+  'click',
+  (event) => {
+    if (locks.length) {
       return;
     }
 
-    handler(event);
-  });
+    const last = stack[stack.length - 1];
+    if (last) {
+      const { ref, listener } = last;
+      const el = ref.current;
+
+      // Do nothing if clicking ref's element or descendent elements
+      if (el?.contains(event.target as Node)) {
+        return;
+      }
+
+      listener();
+      event.stopPropagation();
+    }
+  },
+  { capture: true },
+);
+
+function lock(): void {
+  locks.push(true);
 }
 
-export default useOnClickOutside;
+function unlock(): void {
+  setTimeout(() => locks.pop(), 100);
+}
+
+export function useClickOutsideLock(): [Fn<[], Fn>, Fn] {
+  return [
+    () => {
+      lock();
+
+      return unlock;
+    },
+    unlock,
+  ];
+}
+
+export function useOnClickOutside<T extends HTMLElement = HTMLElement>(
+  ref: RefObject<T>,
+  listener: Listener,
+  active = true,
+): void {
+  useEffect(() => {
+    const { current } = ref;
+    if (current && active && !refs.has(current)) {
+      refs.add(current);
+      const item = { ref, listener };
+      stack.push(item);
+
+      return () => {
+        const index = stack.findIndex((n) => n.ref.current === ref.current);
+        if (index > -1) {
+          refs.delete(current);
+          stack.splice(index, 1);
+        }
+      };
+    }
+  }, [active]);
+}
 
 //usage
 

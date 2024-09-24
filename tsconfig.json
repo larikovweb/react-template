@@ -12,7 +12,17 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
+    "baseUrl": ".",
+    "paths": {
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/components/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@interfaces/*": ["src/interfaces/*"],
+      "@pages/*": ["src/pages/*"],
+      "@redux/*": ["src/redux/*"],
+      "@styled/*": ["src/styled/*"],
+      "@utils/*": ["src/utils/*"]
+    },
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
